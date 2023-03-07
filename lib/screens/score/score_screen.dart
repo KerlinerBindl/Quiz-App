@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/constants.dart';
 import 'package:quiz_app/controllers/question_controller.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:quiz_app/screens/quiz/quiz_screen.dart';
 import 'package:quiz_app/screens/welcome/welcome_screen.dart';
 
 class ScoreScreen extends StatelessWidget {
@@ -14,16 +12,16 @@ class ScoreScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SvgPicture.asset("assets/icons/bg3.svg", fit: BoxFit.fill),
+          //SvgPicture.asset("assets/icons/bg3.svg", fit: BoxFit.fill),
           Column(
             children: [
               Spacer(flex: 3),
               Text(
-                "Score",
+                "Auswertung",
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    .copyWith(color: kSecondaryColor, fontSize: 100),
+                    .copyWith(color: kSecondaryColor, fontSize: 50),
               ),
               Spacer(),
               Text(
@@ -36,7 +34,11 @@ class ScoreScreen extends StatelessWidget {
               Spacer(flex: 3),
               Spacer(), // 1/6
               InkWell(
-                onTap: () => Get.to(WelcomeScreen()),
+                onTap: () {
+                  Get.to(WelcomeScreen());
+                  _qnController.resetQuestions();
+                  print(_qnController.questions);
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,

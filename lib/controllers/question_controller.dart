@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:quiz_app/models/Questions.dart';
 import 'package:quiz_app/screens/score/score_screen.dart';
 
 // We use get package for our state management
 
 class QuestionController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetSingleTickerProviderStateMixin {
   // Lets animated our progress bar
 
   AnimationController _animationController;
@@ -74,6 +73,7 @@ class QuestionController extends GetxController
   }
 
   void checkAns(Question question, int selectedIndex) {
+    print("Selected Index $selectedIndex");
     // because once user press any option then it will run
     _isAnswered = true;
     _correctAns = question.answer;
@@ -81,13 +81,12 @@ class QuestionController extends GetxController
 
     if (_correctAns == _selectedAns) _numOfCorrectAns++;
 
-
     // It will stop the counter
     _animationController.stop();
     update();
 
     // Once user select an ans after 3s it will go to the next qn
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       nextQuestion();
     });
   }
@@ -112,5 +111,14 @@ class QuestionController extends GetxController
 
   void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
+  }
+
+  void resetQuestions() {
+    //_questionNumber = 1.obs;
+    //_isAnswered = false;
+    //_correctAns = null;
+    //_numOfCorrectAns = 0;
+    //_selectedAns = 0;
+    Get.delete();
   }
 }
